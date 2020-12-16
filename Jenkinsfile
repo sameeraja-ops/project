@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('init') {
+        stage('Init') {
             steps {
                 sh 'ansible-playbook -i /home/centos/host.ini /home/centos/installtions.yml'
             }
