@@ -1,6 +1,7 @@
 - name: preparing initial setup
   hosts: all
   become: yes
+  ignore_errors: true
 
   tasks:
    - name: installing git
