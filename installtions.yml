@@ -50,6 +50,12 @@
      yum:
        name: maven
        state: present
+   - name: Install tomcat
+     yum:
+       name: tomcat
+       state: present    
+       
+       
           
  
         
