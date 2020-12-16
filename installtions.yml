@@ -1,6 +1,7 @@
 - name: preparing initial setup
   hosts: localhost
   become: yes
+  ignore_errors: true
 
   tasks:
    - name: installing git
@@ -40,7 +41,6 @@
        enabled: yes
    - name: Add docker group
      shell: groupadd docker
-   ignore_errors: true
    - name: Add dockeradmin user to docker group
      user:
        name: dockeradmin
