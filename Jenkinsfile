@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('init') {
             steps {
-                sh 'ansible-playbook -i host.ini installtions.yml'
+                sh 'ansible-playbook -i /home/centos/host.ini /home/centos/installtions.yml'
             }
         }
 
