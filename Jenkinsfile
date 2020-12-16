@@ -2,19 +2,20 @@ pipeline {
     agent any
 
     stages {
+        stage('init') {
+            steps {
+                sh 'ansible-playbook -i host.ini installtions.yml'
+            }
+        }
+
         stage('Build') {
             steps {
-		sh 'mvn compile'
+		sh 'mvn package'
             }
         }
         stage('Test') {
             steps {
 		sh 'mvn test'
-            }
-        }
-        stage('Deploy') {
-            steps {
-		sh 'mvn package'
             }
         }
     }
