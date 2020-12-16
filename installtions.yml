@@ -1,5 +1,5 @@
 - name: preparing initial setup
-  hosts: all
+  hosts: app
   become: yes
   ignore_errors: true
 
