@@ -1,5 +1,5 @@
 - name: preparing initial setup
-  hosts: localhost
+  hosts: all
   become: yes
 
   tasks:
