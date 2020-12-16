@@ -1,0 +1,54 @@
+- name: preparing initial setup
+  hosts: localhost
+  become: yes
+
+  tasks:
+   - name: installing git
+     yum:
+        name: git
+        state: present
+   - name: installing java
+     package:
+        name: java-1.8.0
+        state: present
+   - name: Add jenkins repo 
+     get_url:
+       url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+       dest: /etc/yum.repos.d/jenkins.repo 
+   - name: Key for rpm
+     shell: rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+   - name: Install Jenkins package.
+     yum:
+       name: jenkins
+       state: present
+   - name: Enable jenkins
+     service:
+       name: jenkins
+       enabled: yes
+   - name: Start jenkins
+     service:
+       name: jenkins
+       state: started
+   - name: Install docker
+     yum:
+       name: docker
+       state: present
+   - name: Start docker service
+     service:
+       name: docker 
+       state: started
+       enabled: yes
+   - name: Add docker group
+     shell: groupadd docker
+   - name: Add dockeradmin user to docker group
+     user:
+       name: dockeradmin
+       groups: docker
+       append: yes
+   - name: Install maven
+     yum:
+       name: maven
+       state: present
+          
+ 
+        
