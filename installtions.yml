@@ -58,6 +58,8 @@
      become: no
    - name: Start tomcat
      shell: /home/centos/apache-tomcat-7.0.94/bin/startup.sh
+     become: no
+     ignore_errors: true
    - name: Install nexus
      get_url:
       url: https://download.sonatype.com/nexus/oss/nexus-2.14.18-01-bundle.tar.gz

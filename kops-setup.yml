@@ -1,6 +1,14 @@
 - name: kops setup
   hosts: kops
   tasks:
+   - name: Installing common components
+     yum:
+       name:
+          - unzip
+          - wget
+          - vim
+       state: present
+     become: yes
    - name: Install Kops on ec2
      shell: |
        curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
@@ -11,15 +19,11 @@
        curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
        chmod +x ./kubectl
        sudo mv ./kubectl /usr/local/bin/kubectl
-   - name: Installing Aws cli
-     shell: |
-         curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-         unzip awscliv2.zip
-         sudo ./aws/install
    - name: Creating s3 bucket
      shell: aws s3 mb s3://sameera.club.k8s --region us-east-2
+     ignore_errors: true
    - name: Creating cluster definition
      shell: |
-       kops create cluster --state=s3://sameera.club.k8s --node-count=2 --master-size=t2.micro --node-size=t2.micro --zones=us-east-2a,us-east-2b --name=sameera.club --dns private --master-count 1
-       kops update cluster --yes
-       kops validate cluster
+       kops create cluster --state=s3://sameera.club.k8s --node-count=2 --master-size=t2.micro --node-size=t2.micro --zones=us-east-2a,us-east-2b --name=sameera.club --dns private --master-count 1 --yes
+       kops validate cluster --state=s3://sameera.club.k8s  
+     ignore_errors: true
