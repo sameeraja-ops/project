@@ -1,5 +1,5 @@
 - name: preparing initial setup
-  hosts: app
+  hosts: all
   become: yes
   ignore_errors: true
 
@@ -46,16 +46,20 @@
        name: dockeradmin
        groups: docker
        append: yes
+     become: no  
    - name: Install maven
      yum:
        name: maven
        state: present
    - name: Install tomcat
      get_url: https://archive.apache.org/dist/tomcat/tomcat-7/v7.0.94/bin/apache-tomcat-7.0.94.tar.gz
+     become: no
    - name: Extract Archive
      unarchive: tar xvf apache-tomcat-7.0.94.tar.gz
+     become: no
    - name: Start tomcat
      shell: /home/centos/apache-tomcat-7.0.94.tar.gz/bin/startup.sh
+     become: no
    - name: Install nexus
      get_url: https://download.sonatype.com/nexus/oss/nexus-2.14.18-01-bundle.tar.gz
    - name: Extract nexus
@@ -68,6 +72,8 @@
      shell: unzip home/centos/sonarqube-6.7.7.zip
    - name: Start Sonarqube
      shell: home/centos/sonarqube-6.7.7/bin/linux-x86-64/sonar.sh start
+    
+
     
        
        
