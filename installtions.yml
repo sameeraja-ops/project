@@ -18,24 +18,6 @@
      package:
         name: java-1.8.0
         state: present
-   - name: Add jenkins repo 
-     get_url:
-       url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
-       dest: /etc/yum.repos.d/jenkins.repo
-   - name: Key for rpm
-     shell: rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
-   - name: Install Jenkins package.
-     yum:
-       name: jenkins
-       state: present
-   - name: Enable jenkins
-     service:
-       name: jenkins
-       enabled: yes
-   - name: Start jenkins
-     service:
-       name: jenkins
-       state: started
    - name: Install docker
      yum:
        name: docker
@@ -98,7 +80,7 @@
    - name: Start Sonarqube
      shell: /home/centos/sonarqube-6.7.7/bin/linux-x86-64/sonar.sh start
      become: no
-       
+     ignore_errors: yes 
        
           
  
