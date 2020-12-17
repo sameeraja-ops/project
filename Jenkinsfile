@@ -5,7 +5,7 @@ pipeline {
         stage('Init') {
             steps {
 		sh 'whoami'
-                sh 'ansible-playbook -i hosts.ini installtions.yml'
+                sh 'sudo su centos && ansible-playbook -i hosts.ini installtions.yml'
             }
         }
 
