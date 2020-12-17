@@ -18,11 +18,6 @@ pipeline {
 		sh 'mvn test'
             }
         }
-	stage('dev deploy') {
-	    steps{
-                echo "deploying to DEV Env "
-                deploy adapters: [tomcat7(credentialsId: 'deployer', path: '', url: 'https://18.218.255.189:7777')], contextPath: null, war: '**/.*'
-    }
-    }
+	
 }
 }
