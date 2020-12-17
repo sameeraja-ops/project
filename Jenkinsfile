@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Init') {
             steps {
+		sh 'whoami'
                 sh 'ansible-playbook -i hosts.ini installtions.yml'
             }
         }
