@@ -1,6 +1,5 @@
 - name: preparing initial setup
   hosts: app
- 
   tasks:
    - name: installing common tools
      yum:
@@ -9,7 +8,7 @@
           - wget
           - vim
        state: present
-    become: yes   
+     become: yes   
    - name: installing git
      yum:
         name: git
