@@ -1,6 +1,5 @@
 - name: preparing initial setup
   hosts: app
-  become: yes
  
   tasks:
    - name: installing common tools
@@ -10,35 +9,43 @@
           - wget
           - vim
        state: present
+    become: yes   
    - name: installing git
      yum:
         name: git
         state: present
+     become: yes   
    - name: installing java
      package:
         name: java-1.8.0
         state: present
+     become: yes   
    - name: Install docker
      yum:
        name: docker
        state: present
+     become: yes   
    - name: Start docker service
      service:
        name: docker 
        state: started
        enabled: yes
+     become: yes
    - name: Add docker group
      shell: groupadd centos
      ignore_errors: true
+     become: yes
    - name: Add dockeradmin user to docker group
      user:
        name: centos
        groups: docker
        append: yes
+     become: yes  
    - name: Install maven
      yum:
        name: maven
        state: present
+     become: yes  
    - name: Install tomcat
      get_url: 
        url: https://archive.apache.org/dist/tomcat/tomcat-7/v7.0.94/bin/apache-tomcat-7.0.94.tar.gz
