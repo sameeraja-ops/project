@@ -1,9 +1,15 @@
 - name: preparing initial setup
-  hosts: 18.223.32.1
+  hosts: app
   become: yes
-  ignore_errors: true
-
+ 
   tasks:
+   - name: installing common tools
+     yum:
+       name:
+          - unzip
+          - wget
+          - vim
+       state: present
    - name: installing git
      yum:
         name: git
@@ -40,13 +46,13 @@
        state: started
        enabled: yes
    - name: Add docker group
-     shell: groupadd docker
+     shell: groupadd centos
+     ignore_errors: true
    - name: Add dockeradmin user to docker group
      user:
-       name: dockeradmin
+       name: centos
        groups: docker
        append: yes
-     become: no
    - name: Install maven
      yum:
        name: maven
@@ -58,31 +64,40 @@
      become: no
    - name: Extract Archive
      unarchive:
-       src: tar xvf apache-tomcat-7.0.94.tar.gz
+       src: /home/centos/apache-tomcat-7.0.94.tar.gz
        dest: /home/centos
+       remote_src: yes
      become: no
    - name: Start tomcat
-     shell: /home/centos/apache-tomcat-7.0.94.tar.gz/bin/startup.sh
-     become: no
+     shell: /home/centos/apache-tomcat-7.0.94/bin/startup.sh
    - name: Install nexus
      get_url:
       url: https://download.sonatype.com/nexus/oss/nexus-2.14.18-01-bundle.tar.gz
       dest: /home/centos
+     become: no
    - name: Extract nexus
      unarchive: 
-       src: tar xvf nexus-2.14.18-01-bundle.tar.gz
+       src: /home/centos/nexus-2.14.18-01-bundle.tar.gz
        dest: /home/centos
+       remote_src: yes
+     become: no
    - name: Start Nexus
-     shell: home/centos/nexus-2.14.16-01/bin/nexus start
+     shell: /home/centos/nexus-2.14.18-01/bin/nexus start
+     become: no
    - name: Install Sonarqube
      get_url:
       url: https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-6.7.7.zip
       dest: /home/centos
+     become: no
    - name: Unzip Sonarqube
-     shell: unzip home/centos/sonarqube-6.7.7.zip
+     unarchive:
+       src: /home/centos/sonarqube-6.7.7.zip
+       dest: /home/centos
+       remote_src: yes
+     become: no
    - name: Start Sonarqube
-     shell: home/centos/sonarqube-6.7.7/bin/linux-x86-64/sonar.sh start
-    
+     shell: /home/centos/sonarqube-6.7.7/bin/linux-x86-64/sonar.sh start
+     become: no
        
        
           
