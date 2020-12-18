@@ -38,6 +38,12 @@ pipeline {
                      docker build -t  sam-images1 /home/centos/project/ ; docker run -dt --name sam-containers1 -p 9093:8080 sam-images1 ; docker tag sam-images1 sameeraja/sam-images1 ; ''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
 	     }
      }
+     stage('docker push') {
+	     steps {
+		     sshPublisher(publishers: [sshPublisherDesc(configName: 'tomcat_server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''docker login --username=sameeraja --password=Sameera123$
+                     docker push sameeraja/sam-images1''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+	     }
+     }
 }
 }
 
