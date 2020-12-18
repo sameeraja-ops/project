@@ -44,6 +44,11 @@ pipeline {
                      docker push sameeraja/sam-images1''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
 	     }
      }
+     stage('kubernetes deployment') {
+	     steps {
+		     sh 'kubectl apply -f /home/centos/project/deployment.yml'
+	     }
+     }
 }
 }
 
