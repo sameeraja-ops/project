@@ -32,6 +32,13 @@ pipeline {
             sshPublisher(publishers: [sshPublisherDesc(configName: 'tomcat_server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd /home/centos/project ;
             mvn deploy ;''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])          }
       } 
+     stage('docker build') {
+	     steps{
+               sshPublisher(publishers: [sshPublisherDesc(configName: 'tomcat_server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''(docker stop sam_cont && docker rm -rf sam-cont) || echo "Container specified doesnt exist" ;
+               docker build -t  sam-image /home/centos ; docker run -dt --name sam-cont -p 8090:8080 sam-image ; docker tag sam-image sameeraja/sam-image ; ''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+	     
+	     }
+     }
 }
 }
 
