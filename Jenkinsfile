@@ -17,7 +17,8 @@ pipeline {
        stage('dev deploy') {
 	        steps{
 	           sh "echo 'deploying to DEV Env' "
-                   deploy adapters: [tomcat7(credentialsId: 'deployer-creds', path: '', url: 'http://3.138.108.0:7777/')], contextPath: null, war: 'target/*.war'            }
+                   deploy adapters: [tomcat7(credentialsId: 'deployer-creds', path: '', url: 'http://3.138.108.0:7777/')], contextPath: null, war: 'target/*.war'            
+		}
     }
        stage('sonar test') {
 	     steps{
@@ -34,5 +35,5 @@ pipeline {
 }
 }
 
-}
-}
+
+
