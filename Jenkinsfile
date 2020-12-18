@@ -13,11 +13,7 @@ pipeline {
 		sh 'mvn package'
             }
         }
-        stage('Test') {
-            steps {
-		sh 'mvn test'
-            }
-        }
+
         stage('dev deploy') {
 	    steps{
                 echo "deploying to DEV Env "
