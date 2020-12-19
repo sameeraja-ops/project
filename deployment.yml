@@ -12,8 +12,8 @@ spec:
       labels:
         name: app-project
     spec:
-    containers: 
-       - name: app-container
-         image: sameeraja/sam-finalimage
-         ports:
-          - containerPort: 8080
+      containers: 
+        - name: app-container
+          image: sameeraja/sam-finalimage
+          ports:
+           - containerPort: 8080
