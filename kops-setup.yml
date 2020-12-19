@@ -33,7 +33,7 @@
      ignore_errors: yes
    - name: creating cluster state - 2
      shell: | 
-     export KOPS_CLUSTER_NAME= sameera.club
+     export KOPS_CLUSTER_NAME = sameera.club
      export KOPS_STATE_STORE=s3://sameera.club.k8s 
    - name: Creating cluster definition
      shell: |
