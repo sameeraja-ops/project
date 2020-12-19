@@ -1,0 +1,5 @@
+- name: Delete kubernetes cluster
+  hosts: kops
+  tasks:
+    - name: delete cluster
+      shell: kops delete cluster --state=s3://javahomesameera.in.k8s --name=sameera.club --yes
