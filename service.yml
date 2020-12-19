@@ -7,8 +7,8 @@ spec:
     app: app-project
   type: LoadBalancer
   ports:
-    - port:8080
-      targetPort:9094
+    - port: 8080
+      targetPort: 9094
      
            
            
