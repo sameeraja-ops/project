@@ -28,13 +28,6 @@
    - name: Creating s3 bucket
      shell: aws s3 mb s3://sameera.club.k8s --region us-east-2
      ignore_errors: true
-   - name: creating cluster state - 1
-     shell: echo | ssh-keygen -P ''
-     ignore_errors: yes
-   - name: creating cluster state - 2
-     shell: | 
-     export KOPS_CLUSTER_NAME:sameera.club
-     export KOPS_STATE_STORE:s3://sameera.club.k8s 
    - name: Creating cluster definition
      shell: |
        (kops validate cluster --state=s3://sameera.club.k8s --name: sameera.club) || (kops create cluster --state=s3://sameera.club.k8s --node-count=2 --master-size=t2.micro --node-size=t2.micro --zones=us-east-2a,us-east-2b --name= sameera.club --dns private --master-count 1 --yes)
