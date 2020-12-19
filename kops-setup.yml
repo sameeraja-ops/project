@@ -35,4 +35,6 @@
      shell: export KOPS_STATE_STORE=s3://sameera.club.k8s 
    - name: Creating cluster definition
      shell: |
-       kops validate cluster --state=s3://sameera.club.k8s --name: sameera.club|| (kops create cluster --state=s3://sameera.club.k8s --node-count=2 --master-size=t2.micro --node-size=t2.micro --zones=us-east-2a,us-east-2b --name= sameera.club --dns private --master-count 1 --yes)  kops update cluster --yes
+       (kops validate cluster --state=s3://sameera.club.k8s --name: sameera.club) || (kops create cluster --state=s3://sameera.club.k8s --node-count=2 --master-size=t2.micro --node-size=t2.micro --zones=us-east-2a,us-east-2b --name= sameera.club --dns private --master-count 1 --yes)
+       kops update cluster --yes
+        
