@@ -1,0 +1,19 @@
+apiVersion: app/v1
+kind: Deployment
+metadata: 
+  name: app-deployment
+spec:
+  selector:
+    matchLabels:
+      name: app-project
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        name: app-project
+    spec:
+    containers: 
+       - name: app-container
+         image: sameeraja/sam-images1
+         ports:
+          - containerPort: 8080
