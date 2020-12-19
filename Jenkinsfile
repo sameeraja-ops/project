@@ -16,14 +16,14 @@ pipeline {
        stage('dev deploy') {
 	        steps{
 	           sh "echo 'deploying to DEV Env' "
-                   deploy adapters: [tomcat7(credentialsId: 'deployer-creds', path: '', url: 'http://3.22.168.223:7777/')], contextPath: null, war: 'target/*.war'            
+                   deploy adapters: [tomcat7(credentialsId: 'deployer-creds', path: '', url: 'http://18.222.28.128:7777/')], contextPath: null, war: 'target/*.war'            
 		}
     }
        stage('sonar test') {
 	     steps{
                sshPublisher(publishers: [sshPublisherDesc(configName: 'tomcat_server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd /home/centos/project || (git clone https://github.com/sameeraja-ops/project.git && cd /home/centos/project) ;
                git pull --all ; 
-               mvn compile sonar:sonar -Dsonar.host.url=http://3.22.168.223:9000 -Dsonar.login=e659d1a83c1b6b709431a4f6c0349884cd0137b5''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true)])
+               mvn compile sonar:sonar -Dsonar.host.url=http://18.222.28.128:9000 -Dsonar.login=e659d1a83c1b6b709431a4f6c0349884cd0137b5''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true)])
 	    }
        }
       stage('nexus deploy') {
