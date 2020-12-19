@@ -5,15 +5,18 @@ metadata:
 spec:
   selector:
     matchLabels:
-      name: app-project
+      app: app-project
   replicas: 2
   template:
     metadata:
       labels:
-        name: app-project
+        app: app-project
     spec:
       containers: 
         - name: app-container
-          image: sameeraja/sam-finalimage
+          image: "sameeraja/sam-finalimage"
           ports:
            - containerPort: 8080
+           
+           
+                   
